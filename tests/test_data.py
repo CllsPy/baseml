@@ -1,5 +1,8 @@
-from baseml.data_loader import load_data
+from baseml.data_loader import build_path
+from pathlib import Path
 
 
-def test_load_data():
-    assert load_data() is True
+class TestDataValidator:
+    def test_path_exists(self):
+        path = build_path("sample")
+        assert Path(path).exists()
