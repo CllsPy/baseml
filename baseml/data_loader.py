@@ -9,7 +9,7 @@ def load_data(dataset_name):
     data_frame = pd.read_csv(base_url)
     return data_frame
 
-    
+
 if __name__ == "__main__":
     print(build_path("sample"))
     print(load_data("sample"))

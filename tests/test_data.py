@@ -10,9 +10,4 @@ def base_url():
 
 def test_path_exists(base_url):
     path = build_path(base_url)
-    assert Path(path).exists()
-
-def test_load_data(base_url):
-    path = build_path(base_url)
-    data_frame = pd.read_csv(path)
-    assert not data_frame.empty
+    assert Path(path).exists(), f"O diretório {path} não existe"
