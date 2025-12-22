@@ -1,5 +1,5 @@
 LinearRegression:
-  tol: [0.1, 0.01, 0.001]
+  copy_X: [False, True]
 
 SVR:
   kernel: [linear, poly]

@@ -6,6 +6,7 @@ from sklearn import linear_model
 from sklearn import svm
 
 import yaml
+import json
 
 with open("config/model.yaml", "r") as f:
     params_yaml = yaml.safe_load(f)
@@ -42,7 +43,27 @@ def setup_grid():
         grid_search.append(estimator)
     
     return grid_search
-   
+
+def collect_best_params():
+    pass
+
+def jsonfy_predictions():
+    pass
+
+def make_prediction():
+    grid = setup_grid()
+    X_train, X_test, y_train, y_test = split_data("sample", "target")
+
+    models_and_predictions = {}
+
+    for estimator in grid:
+        estimator.fit(X_train, y_train)
+
+        predictions = estimator.predict(X_test)
+        models_and_predictions[estimator] = predictions
+    
+
+    return models_and_predictions
 
 
 
@@ -50,7 +71,10 @@ if __name__=='__main__':
     X = [[0, 0], [2, 2], [2, 2], [2, 2], [2, 2]]
     y = [0.5, 2.5, 2.5, 2.5, 2.5]
 
-    grid = setup_grid()
-    for x in grid:
-        x.fit(X, y)
-        print(x.predict([[1, 1]]))
+    # grid = setup_grid()
+    # for x in grid:
+    #     print(x)
+    #     x.fit(X, y)
+    #     print(x.predict([[1, 1]]))
+    
+    print(make_prediction())
