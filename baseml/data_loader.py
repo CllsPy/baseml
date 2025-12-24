@@ -1,7 +1,13 @@
 import pandas as pd
 
-def build_path(dataset_name):
-    tmp = "data/"
+def build_path(dataset_name, tmp):
+    """
+    we need to set tmp as tmp/
+    e.g data/
+    
+    :param dataset_name: Description
+    :param tmp: Description
+    """
     return tmp + f"{dataset_name}" + ".csv"
 
 def load_data(dataset_name):
