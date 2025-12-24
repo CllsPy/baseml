@@ -11,38 +11,30 @@ import json
 with open("config/model.yaml", "r") as f:
     params_yaml = yaml.safe_load(f)
 
-def split_data(dataset_name: str, target: str):
-    data_frame = load_data(dataset_name)
+def split_data(dataset_name: str, tmp: str):
+    data_frame = load_data(dataset_name, tmp)
 
-    X = data_frame.drop(target, axis=1)
+    X = data_frame.drop("target", axis=1)
     y = data_frame.target
 
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=42
+        X, y, test_size=params_yaml["GRIDSEARCH"]["test_size"], random_state=params_yaml["GRIDSEARCH"]["random_state"]
     )
 
     return X_train, X_test, y_train, y_test
 
 
 def setup_models():
-    models = {
-        "LinearRegression":  linear_model.LinearRegression(),
-        "SVR": svm.SVR()
-
-    }
-
-    return models
+    model =  svm.SVR()
+    return model
 
 def setup_grid():
-    models = setup_models()
-    grid_search = []
+    model = setup_models()
 
-    for key, value in models.items():
-        model_parameters = params_yaml[key]
-        estimator = GridSearchCV(value, model_parameters)
-        grid_search.append(estimator)
+    model_parameters = params_yaml["SVR"]
+    grid = GridSearchCV(model, model_parameters)
     
-    return grid_search
+    return grid
 
 def collect_best_params():
     pass
@@ -50,20 +42,13 @@ def collect_best_params():
 def jsonfy_predictions():
     pass
 
-def make_prediction():
+def make_prediction(dataset_name, tmp):
     grid = setup_grid()
-    X_train, X_test, y_train, y_test = split_data("sample", "target")
+    X_train, X_test, y_train, y_test = split_data(dataset_name, tmp)
 
-    models_and_predictions = {}
+    estimator = grid.fit(X_train, y_train)
 
-    for estimator in grid:
-        estimator.fit(X_train, y_train)
-
-        predictions = estimator.predict(X_test)
-        models_and_predictions[estimator] = predictions
-    
-
-    return models_and_predictions
+    return estimator.best_params_
 
 
 
@@ -71,10 +56,16 @@ if __name__=='__main__':
     X = [[0, 0], [2, 2], [2, 2], [2, 2], [2, 2]]
     y = [0.5, 2.5, 2.5, 2.5, 2.5]
 
-    # grid = setup_grid()
+    
+    grid = setup_grid()
+    model = setup_models()
+    print(grid)
+    print(model)
     # for x in grid:
     #     print(x)
     #     x.fit(X, y)
     #     print(x.predict([[1, 1]]))
     
-    print(make_prediction())
+    print(make_prediction("sample", "data/"))
+    # for x in setup_grid():
+    
