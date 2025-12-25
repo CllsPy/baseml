@@ -2,11 +2,9 @@ from baseml.data_loader import load_data
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import GridSearchCV
 
-from sklearn import linear_model
 from sklearn import svm
 
 import yaml
-import json
 
 with open("config/model.yaml", "r") as f:
     params_yaml = yaml.safe_load(f)

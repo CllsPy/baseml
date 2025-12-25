@@ -3,7 +3,6 @@ from pathlib import Path
 from baseml.data_loader import load_data
 
 import pytest
-import pandas as pd
 
 
 @pytest.fixture
