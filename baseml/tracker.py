@@ -1,6 +1,6 @@
 import mlflow
 import yaml
-from baseml.train_models import make_prediction
+from baseml.train_models import make_prediction, evaluate
 
 
 with open("config/model.yaml", "r") as f:
@@ -8,11 +8,15 @@ with open("config/model.yaml", "r") as f:
 
 
 def track_best_params(dataset_name, tmp):
-    mlflow.set_experiment("Second Try")
+    mlflow.set_experiment("Third Try")
 
     with mlflow.start_run():
-        best_params = make_prediction(dataset_name, tmp)
+        estimator, best_params = make_prediction(dataset_name, tmp)
+        metric = evaluate(dataset_name, tmp)
+        
         mlflow.log_params(best_params)
+        mlflow.log_metric("mae", metric)
+        mlflow.sklearn.log_model(estimator, "model")
 
     return best_params
 
