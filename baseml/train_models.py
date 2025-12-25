@@ -11,6 +11,7 @@ import json
 with open("config/model.yaml", "r") as f:
     params_yaml = yaml.safe_load(f)
 
+
 def split_data(dataset_name: str, tmp: str):
     data_frame = load_data(dataset_name, tmp)
 
@@ -18,29 +19,36 @@ def split_data(dataset_name: str, tmp: str):
     y = data_frame.target
 
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=params_yaml["GRIDSEARCH"]["test_size"], random_state=params_yaml["GRIDSEARCH"]["random_state"]
+        X,
+        y,
+        test_size=params_yaml["GRIDSEARCH"]["test_size"],
+        random_state=params_yaml["GRIDSEARCH"]["random_state"],
     )
 
     return X_train, X_test, y_train, y_test
 
 
 def setup_models():
-    model =  svm.SVR()
+    model = svm.SVR()
     return model
+
 
 def setup_grid():
     model = setup_models()
 
     model_parameters = params_yaml["SVR"]
     grid = GridSearchCV(model, model_parameters)
-    
+
     return grid
+
 
 def collect_best_params():
     pass
 
+
 def jsonfy_predictions():
     pass
+
 
 def make_prediction(dataset_name, tmp):
     grid = setup_grid()
@@ -51,12 +59,10 @@ def make_prediction(dataset_name, tmp):
     return estimator.best_params_
 
 
-
-if __name__=='__main__':
+if __name__ == "__main__":
     X = [[0, 0], [2, 2], [2, 2], [2, 2], [2, 2]]
     y = [0.5, 2.5, 2.5, 2.5, 2.5]
 
-    
     grid = setup_grid()
     model = setup_models()
     print(grid)
@@ -65,7 +71,6 @@ if __name__=='__main__':
     #     print(x)
     #     x.fit(X, y)
     #     print(x.predict([[1, 1]]))
-    
+
     print(make_prediction("sample", "data/"))
     # for x in setup_grid():
-    
