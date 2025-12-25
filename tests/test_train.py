@@ -10,7 +10,7 @@ def sample_data():
      return X, y
 
 def test_split_data():
-    X_train, X_test, y_train, y_test = split_data("sample", "target")
+    X_train, X_test, y_train, y_test = split_data("sample", "tests/assets/")
    
     assert X_train.shape[0] == y_train.shape[0], f'X_train e y_train possuem diferentes números de linhas'
     assert X_test.shape[0] == y_test.shape[0], f'X_test e y_test possuem diferentes números de colunas'
