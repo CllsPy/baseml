@@ -13,7 +13,7 @@ def track_best_params(dataset_name, tmp):
     with mlflow.start_run():
         estimator, best_params = make_prediction(dataset_name, tmp)
         metric = evaluate(dataset_name, tmp)
-        
+
         mlflow.log_params(best_params)
         mlflow.log_metric("mae", metric)
         mlflow.sklearn.log_model(estimator, "model")

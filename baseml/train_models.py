@@ -57,10 +57,11 @@ def make_prediction(dataset_name, tmp):
 
     return estimator, estimator.best_params_
 
+
 def evaluate(dataset_name: str, tmp: str):
     """
     Docstring for evaluate
-    """ 
+    """
 
     _, X_test, _, y_test = split_data(dataset_name, tmp)
 
@@ -75,15 +76,15 @@ if __name__ == "__main__":
     X = [[0, 0], [2, 2], [2, 2], [2, 2], [2, 2]]
     y = [0.5, 2.5, 2.5, 2.5, 2.5]
 
-    #grid = setup_grid()
-    #model = setup_models()
-    #print(grid)
-    #print(model)
+    # grid = setup_grid()
+    # model = setup_models()
+    # print(grid)
+    # print(model)
     # for x in grid:
     #     print(x)
     #     x.fit(X, y)
     #     print(x.predict([[1, 1]]))
 
-    #estimator, _ = (make_prediction("sample", "data/"))
+    # estimator, _ = (make_prediction("sample", "data/"))
     print(evaluate("sample", "data/"))
     # for x in setup_grid():
