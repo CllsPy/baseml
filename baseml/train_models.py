@@ -41,14 +41,6 @@ def setup_grid():
     return grid
 
 
-def collect_best_params():
-    pass
-
-
-def jsonfy_predictions():
-    pass
-
-
 def make_prediction(dataset_name, tmp):
     grid = setup_grid()
     X_train, X_test, y_train, y_test = split_data(dataset_name, tmp)
